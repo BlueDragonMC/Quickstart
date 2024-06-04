@@ -3,10 +3,10 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-run/
-!run/worlds/Lobby/lobby
-!run/worlds/MyGame/
-.idea
+
+run/**/*.jar
+
+.idea/*
 !.idea/runConfigurations/
 
 ### IntelliJ IDEA ###
