@@ -4,11 +4,11 @@
 # - https://docs.gradle.org/current/userguide/platforms.html
 
 [versions]
-server = "8bdbcf00e1"
-minestom = "1_21_5-aa17002536"
-minimessage = "4.20.0"
+server = "e602840227"
+minestom = "2025.08.12-1.21.8"
+minimessage = "4.24.0"
 
 [libraries]
 server = { group = "com.github.BlueDragonMC.Server", name="common", version.ref = "server" }
-minestom = { group = "net.minestom", name = "minestom-snapshots", version.ref = "minestom" }
+minestom = { group = "net.minestom", name = "minestom", version.ref = "minestom" }
 minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "minimessage" }

@@ -9,6 +9,15 @@ repositories {
     mavenCentral()
 }
 
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven(url = "https://jitpack.io")
+        maven("https://reposilite.atlasengine.ca/public")
+    }
+}
+
 dependencies {
     testImplementation(kotlin("test"))
 }
@@ -25,9 +34,9 @@ tasks.register("copyJars", Copy::class) {
     subprojects.forEach { subproject ->
         if (subproject.name == "common") return@forEach // Exclude the `common` project because it's a library, not a game
         dependsOn(subproject.tasks.build) // Ensure this task runs after the subproject builds
-        from(subproject.buildDir.path + "/libs/" + subproject.name + "-1.0-SNAPSHOT.jar")
+        from("${subproject.layout.buildDirectory.get()}/libs/${subproject.name}-1.0-SNAPSHOT.jar")
     }
-    into("${buildDir}/all-jars")
+    into("${layout.buildDirectory.get()}/all-jars")
 }
 
 // After the whole project is built, run the task we just created to copy the JARs
@@ -38,7 +47,7 @@ tasks.build.configure {
 // For development: copy build game JARs into the `run` folder
 tasks.register("copyDev", Copy::class) {
     dependsOn("copyJars")
-    from("${buildDir}/all-jars")
+    from("${layout.buildDirectory.get()}/all-jars")
     into("${projectDir}/run/games/")
 }
 
