@@ -6,7 +6,7 @@ Welcome! This project will get you up and running with BlueDragon's server softw
 
 Prerequisites:
 
-* Java 21 or later installed
+* Java 25 or later installed
 * [Docker](https://www.docker.com/get-started/) installed and running
 
 1. Clone this repo and the Server repo:

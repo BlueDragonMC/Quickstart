@@ -29,18 +29,21 @@ class MyGame(mapName: String) : Game(name = "MyGame", mapName) {
         use(SpectatorModule(spectateOnDeath = true))
         use(VoidDeathModule(threshold = 40.0))
         use(CustomDeathMessageModule())
-        use(
-            WinModule(
-                winCondition = WinModule.WinCondition.LAST_PLAYER_ALIVE,
-                coinAwardsFunction = { player, winningTeam ->
-                    // When the game ends, give 100 coins to players on the winning team and 10 coins to everyone else.
-                    if (winningTeam.players.contains(player)) {
-                        return@WinModule 100
-                    } else {
-                        return@WinModule 10
-                    }
-                })
-        )
+
+        use(WinModule(winCondition = WinModule.WinCondition.LAST_PLAYER_ALIVE))
+        handleEvent<WinModule.WinnerDeclaredEvent> { event ->
+            players.forEach { player ->
+                // When the game ends, give 100 coins to players on the winning team and 10 coins to everyone else.
+                val isWinner = event.winningTeamPlayers.contains(player)
+                val coins = if (isWinner) 100 else 10
+                getModule<AwardsModule>().awardCoins(
+                    player, coins, Component.translatable(
+                        if (isWinner) "module.win.coins.won" else "module.win.coins.participation"
+                    )
+                )
+            }
+        }
+
         use(
             MOTDModule(
                 motd = Component.text(
@@ -107,7 +110,7 @@ class MyGame(mapName: String) : Game(name = "MyGame", mapName) {
         handleEvent<WinModule.WinnerDeclaredEvent> { event ->
             // Events are scoped to this game only, so you don't have
             // to worry about other games triggering this event handler.
-            event.winningTeam.players.forEach { player ->
+            event.winningTeamPlayers.forEach { player ->
                 // Because `Game` is a `ForwardingAudience`, all players will receive this message
                 sendMessage(
                     Component.text("Congratulations ", NamedTextColor.YELLOW)
