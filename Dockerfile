@@ -6,14 +6,14 @@
 # docker build --build-context=server=../Server .
 
 # Build the server and publish it to the local maven repository
-FROM docker.io/library/gradle:9.4-jdk25 AS build-server
+FROM docker.io/library/gradle:9.5.1-jdk25 AS build-server
 COPY --from=server . /work
 WORKDIR /work
 RUN --mount=type=cache,target=/home/gradle/.gradle \
-    /usr/bin/gradle --console=plain --info --stacktrace --no-daemon publishToMavenLocal
+    /usr/bin/gradle --console=plain --stacktrace --no-daemon publishToMavenLocal
 
 # Build the lobby and the specified game
-FROM docker.io/library/gradle:9.4-jdk25 AS build-games
+FROM docker.io/library/gradle:9.5.1-jdk25 AS build-games
 ARG GAME
 
 # Receive the built server from the previous step
@@ -21,7 +21,7 @@ COPY --from=build-server /root/.m2/repository/com/bluedragonmc /root/.m2/reposit
 COPY . /work
 WORKDIR /work
 RUN --mount=type=cache,target=/home/gradle/.gradle \
-     /usr/bin/gradle --console=plain --info --stacktrace --no-daemon build
+     /usr/bin/gradle --console=plain --stacktrace --no-daemon build
 
 FROM docker.io/library/eclipse-temurin:25-jdk
 ARG GAME

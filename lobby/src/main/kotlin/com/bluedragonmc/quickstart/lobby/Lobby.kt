@@ -1,9 +1,10 @@
 package com.bluedragonmc.quickstart.lobby
 
 import com.bluedragonmc.server.Game
+import com.bluedragonmc.server.game.GameData
 import com.bluedragonmc.server.module.gameplay.WorldPermissionsModule
 import com.bluedragonmc.server.module.instance.SharedInstanceModule
-import com.bluedragonmc.server.module.map.AnvilFileMapProviderModule
+import com.bluedragonmc.server.module.map.MapProviderModule
 import com.bluedragonmc.server.module.minigame.MOTDModule
 import com.bluedragonmc.server.module.minigame.PlayerResetModule
 import com.bluedragonmc.server.module.minigame.SpawnpointModule
@@ -11,12 +12,11 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.minestom.server.coordinate.Pos
 import net.minestom.server.entity.GameMode
-import java.nio.file.Paths
 
-class Lobby : Game("Lobby", "lobby") {
+class Lobby(data: GameData) : Game(data) {
     override fun initialize() {
+        use(MapProviderModule(data.mapSource))
         use(SharedInstanceModule())
-        use(AnvilFileMapProviderModule(Paths.get("worlds/Lobby/lobby")))
         use(
             SpawnpointModule(
                 spawnpointProvider = SpawnpointModule.TestSpawnpointProvider(

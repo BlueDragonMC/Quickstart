@@ -2,6 +2,7 @@ package com.bluedragonmc.quickstart.mygame
 
 import com.bluedragonmc.quickstart.mygame.module.EggModule
 import com.bluedragonmc.server.Game
+import com.bluedragonmc.server.game.GameData
 import com.bluedragonmc.server.module.combat.CustomDeathMessageModule
 import com.bluedragonmc.server.module.combat.OldCombatModule
 import com.bluedragonmc.server.module.combat.ProjectileModule
@@ -22,7 +23,7 @@ import net.minestom.server.instance.generator.GenerationUnit
 import net.minestom.server.sound.SoundEvent
 import net.minestom.server.world.DimensionType
 
-class MyGame(mapName: String) : Game(name = "MyGame", mapName) {
+class MyGame(data: GameData) : Game(data) {
     override fun initialize() {
         // Built-in game modules
         use(InstantRespawnModule())

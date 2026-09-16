@@ -13,8 +13,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven(url = "https://jitpack.io")
-        maven("https://reposilite.atlasengine.ca/public")
+        maven(url = "https://reposilite.bluedragonmc.com/releases")
     }
 }
 
@@ -60,7 +59,9 @@ tasks.register("buildServerDev", Exec::class) {
 // For development: copy the `Server` project artifact to the `run` folder
 tasks.register("copyServerDev", Copy::class) {
     dependsOn("buildServerDev")
-    from("${projectDir}/../Server/build/libs/Server-1.0-SNAPSHOT-all.jar")
+    from("${projectDir}/../Server/build/libs/") {
+        include("*-all.jar")
+    }
     into("${projectDir}/run")
     rename { "server.jar" }
 }
