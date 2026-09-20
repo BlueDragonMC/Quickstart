@@ -4,9 +4,9 @@
 # - https://docs.gradle.org/current/userguide/platforms.html
 
 [versions]
-server = "2026-09-14-e394984"
-minestom = "2026.08.16-26.2"
-minimessage = "4.24.0"
+server = "2026-09-20-6490e80"
+minestom = "26_3-SNAPSHOT"
+minimessage = "5.1.1"
 
 [libraries]
 server = { group = "com.bluedragonmc.server", name="common", version.ref = "server" }

@@ -13,6 +13,12 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
+            content {
+                includeModule("net.minestom", "minestom")
+                includeModule("net.minestom", "testing")
+            }
+        }
         maven(url = "https://reposilite.bluedragonmc.com/releases")
     }
 }
