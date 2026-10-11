@@ -18,8 +18,9 @@ Prerequisites:
 2. Install and start MongoDB and LuckPerms
 
    The easiest way to do this is with [Docker](https://www.docker.com/).
-   Once you have Docker installed, follow the Creating a Network, MongoDB,
-   and LuckPerms sections of [this guide](https://developer.bluedragonmc.com/deployment/docker/#running).
+   Once you have Docker installed, follow the
+   [Development Environment Setup](https://developer.bluedragonmc.com/guides/dev-env/)
+   guide.
 
 3. Run the Gradle task:
    ```bash
@@ -44,5 +45,5 @@ more information on what services BlueDragon runs,
 see [this section](https://developer.bluedragonmc.com/intro/project-structure/#services-and-their-jobs)
 of our docs.
 
-**To learn how to deploy BlueDragon systems on baremetal, Docker, or Kubernetes,
-see [these guides](https://developer.bluedragonmc.com/choose-deployment-method/).**
+**To learn how to deploy BlueDragon on Kubernetes for production, see the
+[deployment guide](https://developer.bluedragonmc.com/deployment/kubernetes/).**
